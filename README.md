@@ -99,3 +99,30 @@ ColumnsLayoutComponent.REGIONS = {
 
 ColumnsLayoutComponent.register('ColumnsLayoutComponent');
 ```
+
+A good pattern to access the `_id` parameter from the URL is something like:
+
+```javascript
+class FirstComponent extends BlazeComponent {
+  onCreated() {
+    super.onCreated();
+
+    this.currentPostId = new ComputedField(() => {
+      return FlowRouter.getParam('_id');
+    });
+
+    this.autorun((computation) => {
+      postId = this.currentPostId();
+      if (postId) this.subscribe('Comments', postId);
+    });
+  }
+
+  comments() {
+    return Comments.find({
+      'post._id': this.currentPostId()
+    });
+  }
+}
+
+FirstComponent.register('FirstComponent');
+```
