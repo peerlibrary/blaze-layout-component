@@ -1,7 +1,7 @@
 Package.describe({
   name: 'peerlibrary:blaze-layout-component',
   summary: "A simple Blaze Component for use with Flow Router's layout manager",
-  version: '0.1.0',
+  version: '0.1.1',
   git: 'https://github.com/peerlibrary/meteor-blaze-layout-component.git'
 });
 
