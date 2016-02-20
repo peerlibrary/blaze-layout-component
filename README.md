@@ -73,3 +73,29 @@ FlowRouter.route('/post/:_id', {
   }
 });
 ```
+
+Alternatively, you can restrict regions' names to catch possible errors:
+
+```javascript
+class ColumnsLayoutComponent extends BlazeLayoutComponent {
+  renderFirst(parentComponent) {
+    this._renderRegion(this.constructor.REGIONS.FIRST, parentComponent);
+  }
+
+  renderSecond(parentComponent) {
+    this._renderRegion(this.constructor.REGIONS.SECOND, parentComponent);
+  }
+
+  renderThird(parentComponent) {
+    this._renderRegion(this.constructor.REGIONS.THIRD, parentComponent);
+  }
+}
+
+ColumnsLayoutComponent.REGIONS = {
+  FIRST: 'first',
+  SECOND: 'second',
+  THIRD: 'third'
+};
+
+ColumnsLayoutComponent.register('ColumnsLayoutComponent');
+```

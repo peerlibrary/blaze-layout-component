@@ -2,28 +2,42 @@ class BlazeLayoutComponent extends BlazeComponent
   onCreated: ->
     super
 
-    # To make it easier to use region values in methods and minimize reactivity.
     @regions = {}
-    for region, name of @constructor.REGIONS
-      do (name) =>
-        @regions[name] = new ComputedField =>
-          @data()?[name]?() or null
 
-    @autorun (computation) =>
-      unknownRegions = _.difference _.keys(@data()), _.values(@constructor.REGIONS)
+    # If set of regions is restricted, then check them.
+    if @constructor.REGIONS
+      @autorun (computation) =>
+        unknownRegions = _.difference _.keys(@data()), _.values(@constructor.REGIONS)
 
-      throw new Error "Unknown layout region(s) requested: #{unknownRegions.join ', '}." if unknownRegions.length
+        throw new Error "Unknown layout region(s) requested: #{unknownRegions.join ', '}." if unknownRegions.length
+
+  # To make it easier to use region values in methods and minimize reactivity.
+  _regionToComponentName: (regionName) ->
+    if @constructor.REGIONS and regionName not in _.values @constructor.REGIONS
+      throw new Error "Unknown layout region '#{regionName}'."
+
+    # Initialize if we are requesting region for the first time.
+    @regions[regionName] ?= new ComputedField =>
+      # The data context is mapping between region names and region getters.
+      @data()?[regionName]?() or null
+    ,
+      # Referential equality, so that possible component classes are equal.
+      (a, b) => a is b
+
+    @regions[regionName]()
 
   _renderRegion: (regionName, parentComponent) ->
     return null unless regionName
 
-    assert _.has(@regions, regionName), regionName
-
-    componentName = @regions[regionName]()
+    componentName = @_regionToComponentName regionName
 
     return null unless componentName
 
-    component = BlazeComponent.getComponent componentName
+    if _.isString componentName
+      component = BlazeComponent.getComponent componentName
+    else
+      # Otherwise we assume it is already a component.
+      component = componentName
 
     throw new Error "Unknown component '#{componentName}'." unless component
 
