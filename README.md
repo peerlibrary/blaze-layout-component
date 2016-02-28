@@ -7,6 +7,9 @@ A simple [Blaze Component](https://github.com/peerlibrary/meteor-blaze-component
 Adding this package to your [Meteor](http://www.meteor.com/) application adds `BlazeLayoutComponent` class
 into the global scope. It also configures the root Blaze Component to serve as the root of the components' tree.
 
+Alternatively, you can also use our [fork of Flow Router](https://github.com/peerlibrary/flow-router), which
+adds [Ignoring Links](https://github.com/peerlibrary/flow-router#ignoring-links) feature to it.
+
 Client side only.
 
 Installation
