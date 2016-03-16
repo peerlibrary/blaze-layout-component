@@ -47,15 +47,15 @@ Define your layout component:
 ```javascript
 class ColumnsLayoutComponent extends BlazeLayoutComponent {
   renderFirst(parentComponent) {
-    this._renderRegion('first', parentComponent);
+    return this._renderRegion('first', parentComponent);
   }
 
   renderSecond(parentComponent) {
-    this._renderRegion('second', parentComponent);
+    return this._renderRegion('second', parentComponent);
   }
 
   renderThird(parentComponent) {
-    this._renderRegion('third', parentComponent);
+    return this._renderRegion('third', parentComponent);
   }
 }
 
@@ -82,15 +82,15 @@ Alternatively, you can restrict regions' names to catch possible errors:
 ```javascript
 class ColumnsLayoutComponent extends BlazeLayoutComponent {
   renderFirst(parentComponent) {
-    this._renderRegion(this.constructor.REGIONS.FIRST, parentComponent);
+    return this._renderRegion(this.constructor.REGIONS.FIRST, parentComponent);
   }
 
   renderSecond(parentComponent) {
-    this._renderRegion(this.constructor.REGIONS.SECOND, parentComponent);
+    return this._renderRegion(this.constructor.REGIONS.SECOND, parentComponent);
   }
 
   renderThird(parentComponent) {
-    this._renderRegion(this.constructor.REGIONS.THIRD, parentComponent);
+    return this._renderRegion(this.constructor.REGIONS.THIRD, parentComponent);
   }
 }
 
