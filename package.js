@@ -15,9 +15,9 @@ Package.onUse(function (api) {
 
   // 3rd party dependencies.
   api.use([
-    'peerlibrary:blaze-components@0.15.1',
+    'peerlibrary:blaze-components@0.18.0',
     'kadira:blaze-layout@2.3.0',
-    'peerlibrary:computed-field@0.3.0',
+    'peerlibrary:computed-field@0.3.1',
     'peerlibrary:assert@0.2.5'
   ]);
 
