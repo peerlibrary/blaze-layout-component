@@ -16,13 +16,17 @@ class BlazeLayoutComponent extends BlazeComponent
     if @constructor.REGIONS and regionName not in _.values @constructor.REGIONS
       throw new Error "Unknown layout region '#{regionName}'."
 
-    # Initialize if we are requesting region for the first time.
-    @regions[regionName] ?= new ComputedField =>
-      # The data context is mapping between region names and region getters.
-      @data()?[regionName]?() or null
-    ,
-      # Referential equality, so that possible component classes are equal.
-      (a, b) => a is b
+    # Computed fields by default use use current view's autorun. Regions might be accessed
+    # inside render() method, where it is forbidden to use view's autorun. So we temporary
+    # hide the fact that we are inside a view to make computed field use normal autorun.
+    Blaze._withCurrentView null, =>
+      # Initialize if we are requesting region for the first time.
+      @regions[regionName] ?= new ComputedField =>
+        # The data context is mapping between region names and region getters.
+        @data()?[regionName]?() or null
+      ,
+        # Referential equality, so that possible component classes are equal.
+        (a, b) => a is b
 
     @regions[regionName]()
 
