@@ -10,7 +10,8 @@ Package.onUse(function (api) {
 
   // Core dependencies.
   api.use([
-    'coffeescript'
+    'coffeescript',
+    'underscore'
   ]);
 
   // 3rd party dependencies.
