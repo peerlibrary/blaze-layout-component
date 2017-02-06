@@ -26,7 +26,7 @@ observe-sequence@1.0.12
 peerlibrary:assert@0.2.5
 peerlibrary:base-component@0.16.0
 peerlibrary:blaze-components@0.20.0
-peerlibrary:blaze-layout-component@0.2.0
+peerlibrary:blaze-layout-component@0.2.1
 peerlibrary:computed-field@0.6.0
 peerlibrary:data-lookup@0.1.0
 peerlibrary:reactive-field@0.1.0
